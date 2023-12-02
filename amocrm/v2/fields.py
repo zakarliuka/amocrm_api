@@ -85,7 +85,7 @@ class _DateTimeField(_Field):
 
     def on_set(self, value):
         if isinstance(value, datetime):
-            return value.timestamp()
+            return int(value.timestamp())
 
 
 class _ObjectField(_UnEditableField):

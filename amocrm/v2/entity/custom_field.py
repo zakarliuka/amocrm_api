@@ -243,7 +243,7 @@ class DateCustomField(TextCustomField):
 
     def on_set(self, value):
         if isinstance(value, datetime):
-            value = value.timestamp()
+            value = int(value.timestamp())
         return super().on_set(value)
 
 
