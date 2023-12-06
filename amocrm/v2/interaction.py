@@ -127,9 +127,14 @@ class GenericInteraction(BaseInteraction):
 
     def update(self, object_id, data):
         path = "{}/{}".format(self._get_path(), object_id)
-        for item in data['custom_fields_values']:
-            item.pop('is_computed', None)
-            response, status = self.request("patch", path, data=data)
+
+        custom_fields_values = data.get('custom_fields_values')
+
+        if custom_fields_values:
+            for item in data.get('custom_fields_values'):
+                item.pop('is_computed', None)
+        response, status = self.request("patch", path, data=data)
+
         if status == 400:    
             raise exceptions.ValidationError(response)
         return response
